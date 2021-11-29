@@ -16,7 +16,7 @@ from synthetic_data import compexact_bipartipe_graph
 
 
 ## Run the approximate bipartipe graph and the greedy algorithm a hundred times and save the results 
-M =5 # number of run 
+M = 50 # number of run 
 nsize = 10 #size of the graph
 
 #create vector to save the results in
@@ -52,19 +52,21 @@ for i in range(0,M):
     en_quant_list = []
     for sample, E in response.data(fields=['sample','energy']):
         en_quant_list.append(E)
-    print("engergy list ")
-    print(en_quant_list)
+    # print("engergy list ")
+    # print(en_quant_list)
     max_en = - 1*min(en_quant_list)
-    print("Maximum energy")
-    print(max_en)
+    # print("Maximum energy")
+    # print(max_en)
     quantum_score = np.append(quantum_score,max_en)
 
     ## Compute the difference
     diff = max_en-Sg
-    print("difference between greedy alg and quant annealing")
-    print(diff)
+    # print("difference between greedy alg and quant annealing")
+    # print(diff)
     res_diff = np.append(res_diff,diff)
     
+## Save the data to work with it if necessary later 
+
 
 ## Histograms
 mxres = int(res_diff.max())
@@ -78,21 +80,27 @@ ax1.set_xlabel('Values of maximum cut')
 ax1.set_ylabel('Frequency')
 filename = "maxcut_hist.png"
 fig1.savefig(filename, bbox_inches='tight')
-print("finish")
-print("hist")
-print(hist)
+# print("finish")
+# print("hist")
+# print(hist)
 
 ## Scatter plot 
 ## plot the scatter plot
 fig2, ax2 = plt.subplots()
 #ax1.xlabel('Scatter plot of maximum cut')
-ax2.scatter(x=quantum_score, y = greedy_score)
+maxplot = max(max(quantum_score),max(greedy_score))+3
+## scatter plot needs to be perturbed a bit otherwise, can't see results 
+quantum_scoreplot = quantum_score + np.random.rand(M)/2
+greedy_scoreplot = greedy_score + np.random.rand(M)/2
+ax2.scatter(x=quantum_scoreplot, y = greedy_scoreplot,s=30,marker="x")
+x=np.linspace(0,maxplot,100)
+ax2.plot(x,x,label="y=x")
 ax2.set_ylabel('Greedy algorithm score')
 ax2.set_xlabel('Quantum annealing score')
-ax2.set_xlim([0, max(max(quantum_score),max(greedy_score))+3])
-ax2.set_ylim([0, max(max(quantum_score),max(greedy_score))+3])
+ax2.set_xlim([0, maxplot])
+ax2.set_ylim([0, maxplot])
+ax2.legend()
+ax2.grid()
 filename = "maxcut_scatter.png"
 fig2.savefig(filename, bbox_inches='tight')
-print("finish")
-print("hist")
-print(hist)
+print("done")
