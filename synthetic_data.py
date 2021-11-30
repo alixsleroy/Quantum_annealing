@@ -56,14 +56,14 @@ def stochastic_block_model(N,a=0.1,b=0.5,c=0.1,d=0.1):
                 G.add_edges_from([(i,j)]) #add a directed edge from i to j
            
                 
-    # Draw the graph created
-    # setA = list(range(1,Nhalf+1))
-    # pos=nx.spring_layout(G) # Draw the directed edges
-    # nx.draw_networkx(G,pos=nx.bipartite_layout(G, setA)) #Draw the directed edges and nodes
-    # labels = nx.get_edge_attributes(G,'weight') #create the labels (name of the nodes)
-    # nx.draw_networkx_edge_labels(G,pos,edge_labels=labels) #add the label to the plot
-    # filename = "stoch_bloc.png"
-    # plt.savefig(filename, bbox_inches='tight')
+    #Draw the graph created
+    setA = list(range(1,Nhalf+1))
+    pos=nx.spring_layout(G) # Draw the directed edges
+    nx.draw_networkx(G,pos=nx.bipartite_layout(G, setA)) #Draw the directed edges and nodes
+    labels = nx.get_edge_attributes(G,'weight') #create the labels (name of the nodes)
+    nx.draw_networkx_edge_labels(G,pos,edge_labels=labels) #add the label to the plot
+    filename = "stoch_bloc.png"
+    plt.savefig(filename, bbox_inches='tight')
 
     return(G)
 
