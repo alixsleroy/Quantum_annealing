@@ -33,7 +33,7 @@ from synthetic_data import compexact_bipartipe_graph
 
 ## ------- Create the graph -------
 #np.random.seed(123)
-G = stochastic_block_model(10)
+G = compexact_bipartipe_graph(10)
 
 ## ------- Resolve using greedy algorithm -------
 print("\n")
@@ -43,7 +43,7 @@ print('{:>15s}{:>15s}{:^15s}'.format('Set 0','Set 1','Cut Size'))
 print('-' * 60)
 print(greedy_algorithm(G))
 
-## ------- Set up our QUBO dictionary -------
+# ------- Set up our QUBO dictionary -------
 Q = defaultdict(int)
 
 # # Update Q matrix for every edge in the graph
@@ -81,32 +81,3 @@ for sample, E in response.data(fields=['sample','energy']):
 
 print(min(energylist))
 
-# print(response.data(fields=['energy']))
-
-
-
-# # ------- Display results to user -------
-# # Grab best result
-# # Note: "best" result is the result with the lowest energy
-# # Note2: the look up table (lut) is a dictionary, where the key is the node index
-# #   and the value is the set label. For example, lut[5] = 1, indicates that
-# #   node 5 is in set 1 (S1).
-# lut = response.first.sample
-# print(lut)
-# # Interpret best result in terms of nodes and edges
-# S0 = [node for node in G.nodes if not lut[node]]
-# S1 = [node for node in G.nodes if lut[node]]
-# cut_edges = [(u, v) for u, v in G.edges if lut[u]!=lut[v]]
-# uncut_edges = [(u, v) for u, v in G.edges if lut[u]==lut[v]]
-
-# # Display best result
-# pos = nx.spring_layout(G)
-# nx.draw_networkx_nodes(G, pos, nodelist=S0, node_color='r')
-# nx.draw_networkx_nodes(G, pos, nodelist=S1, node_color='c')
-# nx.draw_networkx_edges(G, pos, edgelist=cut_edges, style='dashdot', alpha=0.5, width=3)
-# nx.draw_networkx_edges(G, pos, edgelist=uncut_edges, style='solid', width=3)
-# nx.draw_networkx_labels(G, pos)
-
-# filename = "maxcut_plot.png"
-# plt.savefig(filename, bbox_inches='tight')
-# print("\nYour plot is saved to {}".format(filename))
