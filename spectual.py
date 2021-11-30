@@ -23,7 +23,7 @@ def new_mapping(A):
 
     
     # Compute f(A).
-    fA = u @ diag(np.cosh(s)) @ u.T - u @ diag(np.sinh(s)) @ v
+    fA = u @ np.diag(np.cosh(s)) @ u.T - u @ np.diag(np.sinh(s)) @ v
     return fA
 
     import networkx as nx
