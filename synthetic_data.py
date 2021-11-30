@@ -98,3 +98,11 @@ def compexact_bipartipe_graph(N):
     filename = "completeproblem.png"
     plt.savefig(filename, bbox_inches='tight')
     return(G)
+
+def count_nodes(set1,set2,G):
+    "count the number of nodes going from set 1 to set 2 in the graph G"
+    count=0
+    for i, j in G.edges:
+        if i in set1 and j in set2:
+            count = count+1
+    return(count)

@@ -27,6 +27,7 @@ from matplotlib import pyplot as plt
 from greedy_algAlix import greedy_algorithm
 from synthetic_data import stochastic_block_model
 from synthetic_data import compexact_bipartipe_graph
+from synthetic_data import count_nodes
 
 
 from matplotlib import pyplot, patches
@@ -73,6 +74,7 @@ response = sampler.sample_qubo(Q,
                                label='Example - Maximum Cut')
 
 # # ------- Print results to user -------
+## adjust with the constant
 print("\n")
 print("Quantum Annealing")
 print('-' * 60)
@@ -81,14 +83,15 @@ print('-' * 60)
 for sample, E in response.data(fields=['sample','energy']):
     S0 = [k for k,v in sample.items() if v == 0]
     S1 = [k for k,v in sample.items() if v == 1]
-    Enew = int(E) +int(G.number_of_edges())
+    #Enew = int(E) + G.number_of_edges() 
+    Enew = int(E) + count_nodes(S0,S1,G) 
+    # when you use stochastic bloc
+    # you get the issue but not with exact compact graph 
+    # I am sure why
+    # count_nodes(set1,set2,G) is  a new function in synthetic_data that counts the number 
+    # of nodes going from 1 to 2. 
     print('{:>15s}{:>15s}{:^15s}{:^15s}'.format(str(S0),str(S1),str(Enew),str(int(-1*Enew))))
 
-for sample, E in response.data(fields=['sample','energy']):
-    S0 = [k for k,v in sample.items() if v == 0]
-    S1 = [k for k,v in sample.items() if v == 1]
-    Enew = int(E) 
-    print('{:>15s}{:>15s}{:^15s}{:^15s}'.format(str(S0),str(S1),str(Enew),str(int(-1*Enew))))
 
 
 # energylist = []
