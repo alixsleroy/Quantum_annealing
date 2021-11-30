@@ -65,80 +65,16 @@ def draw_adjacency_matrix(G, node_order=None, partitions=[], colors=[]):
 
 
 def spectual(G):
-    #draw_adjacency_matrix(G)
 
-    # Compute the adjacency matrix A.
     A = nx.adjacency_matrix(G)
-    #print(A.todense())
 
-    # Compute f(A).
     fA = new_mapping(A.todense())
-    #print(fA)
 
-    # Create a figure
-    #fig, ax = plt.subplots()
 
-    # Plot the heatmap
-    #plt.imshow(A.todense(), cmap='cool', interpolation='nearest')
-    #plt.colorbar()
-    #plt.plot(A.todense())
-
-    #plt.show()
-
-    #plt.imshow(fA, cmap='bwr', interpolation='nearest')
-    #plt.colorbar()
-
-    # Set axis properties
-    #ax.set_xlabel(r'$x$', fontsize=12)
-    #ax.set_ylabel(r'$y$', fontsize=12)
-
-    #plt.show()
-
-    # Compute f(A).
     fAT = new_mapping(A.todense().T)
-    #print(fAT)
-
-    # Create a figure
-    #fig, ax = plt.subplots()
-
-    # Plot the heatmap
-    #plt.imshow(A.todense(), cmap='cool', interpolation='nearest')
-    #plt.colorbar()
-    #plt.plot(A.todense())
-
-    #plt.show()
-
-    #plt.imshow(fAT, cmap='bwr', interpolation='nearest')
-    #plt.colorbar()
-
-    # Set axis properties
-    #ax.set_xlabel(r'$x$', fontsize=12)
-    #ax.set_ylabel(r'$y$', fontsize=12)
-
-    #plt.show()
 
     M = fA + fAT
 
-    # Create a figure
-    #fig, ax = plt.subplots()
-
-    # Plot the heatmap
-    #plt.imshow(A.todense(), cmap='cool', interpolation='nearest')
-    #plt.colorbar()
-    #plt.plot(A.todense())
-
-    #plt.show()
-
-    #plt.imshow(M, cmap='bwr', interpolation='nearest')
-    #plt.colorbar()
-
-    # Set axis properties
-    #ax.set_xlabel(r'$x$', fontsize=12)
-    #ax.set_ylabel(r'$y$', fontsize=12)
-
-    #plt.show()
-
-    # Preprocess f to construct Cluster object.
     M_csc = csc_matrix(M)
     M_bar = abs(M_csc)
     M_p = (M_csc + M_bar) / 2
