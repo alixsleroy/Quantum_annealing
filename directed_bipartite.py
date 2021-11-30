@@ -34,7 +34,7 @@ from matplotlib import pyplot, patches
 import numpy as np
 from signet.cluster import Cluster
 from scipy.sparse import csc_matrix
-from spectral_alg import spectual
+from spectral_alg import spectual, cost
 
 
 
@@ -84,7 +84,8 @@ for sample, E in response.data(fields=['sample','energy']):
     S0 = [k for k,v in sample.items() if v == 0]
     S1 = [k for k,v in sample.items() if v == 1]
     #Enew = int(E) + G.number_of_edges() 
-    Enew = int(E) + count_nodes(S0,S1,G) 
+    #Enew = int(E) + count_nodes(S0,S1,G) 
+    Enew = cost(G, S0, S1)
     # when you use stochastic bloc
     # you get the issue but not with exact compact graph 
     # I am sure why
