@@ -19,11 +19,11 @@ from matplotlib import pyplot, patches
 import numpy as np
 from signet.cluster import Cluster
 from scipy.sparse import csc_matrix
-from spectral_alg import spectual
+from spectral_alg import spectual, cost
 
 
 ## Run the approximate bipartipe graph and the greedy algorithm a hundred times and save the results 
-M = 1 #number of run 
+M = 30 #number of run 
 nsize = 10 #size of the graph
 
 #create vector to save the results in
@@ -35,10 +35,15 @@ for i in range(0,M):
     ## Classical algorithm - spectral
     #G = compexact_bipartipe_graph(10)
     G = stochastic_block_model(nsize,a=0.1,b=0.5,c=0.1,d=0.1)
-    _,_,Sg = spectual(G)
-    spectral_score = np.append(spectral_score,-Sg)
-    print("Spectral algorithm")
-    print(-Sg)
+    Sg,S0,S1 = spectual(G)
+    # print("Spectral algorithm")
+    # print(Sg)
+    # print("set 1 ")
+    # print(S0)
+    # print("set 2")
+    # print(S1)
+    spectral_score = np.append(spectral_score,-1*Sg)
+
     ## Quantum Annealing
     ## ------- Set up our QUBO dictionary -------
     Q = defaultdict(int)
@@ -51,21 +56,25 @@ for i in range(0,M):
     # Set up QPU parameters
     chainstrength = 8
     numruns = 10
-    # # Run the QUBO on the solver from your config file
+    # Run the QUBO on the solver from your config file
     sampler = EmbeddingComposite(DWaveSampler())
     response = sampler.sample_qubo(Q,
                                 chain_strength=chainstrength,
                                 num_reads=numruns,
                                 label='Example - Bipartite structure')
 
-    en_quant_list = []
+    # save the results 
+    en_quant_list=[]
     for sample, E in response.data(fields=['sample','energy']):
-        en_quant_list.append(E)
-    print("engergy list ")
-    print(en_quant_list)
-    max_en = -1*(min(en_quant_list) + int(G.number_of_edges()))
-    print("Maximum energy")
-    print(max_en)
+        S0 = [k for k,v in sample.items() if v == 0]
+        S1 = [k for k,v in sample.items() if v == 1]
+        Enew = cost(G, S0, S1)
+        en_quant_list.append(Enew)
+    # print("engergy list ")
+    # print(en_quant_list)
+    max_en = -1*(min(en_quant_list))
+    # print("Maximum energy")
+    # print(max_en)
     quantum_score = np.append(quantum_score,max_en)
 
     ## Compute the difference

@@ -40,8 +40,9 @@ from spectral_alg import spectual, cost
 
 ## ------- Create the graph -------
 #np.random.seed(123)
-G = stochastic_block_model(10)
-#G = compexact_bipartipe_graph(10)
+#G = stochastic_block_model(10)
+G = compexact_bipartipe_graph(10)
+
 ## ********************* TRADITIONAL APPROACH *********************
 ## ------- Resolve using Spectral algorithm -------
 print("Spectral Algorithm")
@@ -83,14 +84,7 @@ print('-' * 60)
 for sample, E in response.data(fields=['sample','energy']):
     S0 = [k for k,v in sample.items() if v == 0]
     S1 = [k for k,v in sample.items() if v == 1]
-    #Enew = int(E) + G.number_of_edges() 
-    #Enew = int(E) + count_nodes(S0,S1,G) 
     Enew = cost(G, S0, S1)
-    # when you use stochastic bloc
-    # you get the issue but not with exact compact graph 
-    # I am sure why
-    # count_nodes(set1,set2,G) is  a new function in synthetic_data that counts the number 
-    # of nodes going from 1 to 2. 
     print('{:>15s}{:>15s}{:^15s}{:^15s}'.format(str(S0),str(S1),str(Enew),str(int(-1*Enew))))
 
 

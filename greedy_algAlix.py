@@ -21,8 +21,15 @@ def max_cut(G,S0_try1,S1_try1):
    
 # ------- Set up the greedy algorithm to find the maximum cut -------
 def greedy_algorithm(G):
-    S0 = []
-    S1 = []
+    '''
+    The function takes as an argument: 
+    - G: a graphx value representing a graph
+    The function returns: 
+    - the two sets with allocations of nodes
+    - the energy function value resulting from the allocation
+    '''
+    S0 = [] #empty set 1
+    S1 = [] #empty set 2
     
     # Allocate the first vertex to any of the two groups randomly
     rand=np.random.normal(1)
