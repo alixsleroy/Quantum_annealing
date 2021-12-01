@@ -73,7 +73,8 @@ def spectual(G):
 
     C = Cluster((M_p, M_n))
 
-    pcapreds = C.SPONGE_sym(2)
+    #pcapreds = C.SPONGE_sym(2)
+    pcapreds = C.SPONGE(2)
 
     # Process the result
     G0 = []
