@@ -40,8 +40,9 @@ from spectral_alg import spectual, cost
 
 ## ------- Create the graph -------
 #np.random.seed(123)
-#G = stochastic_block_model(10)
-G = compexact_bipartipe_graph(10)
+p=0.1
+G = stochastic_block_model(10,p/2,1-p/2,p/2,p/2)
+#G = compexact_bipartipe_graph(10)
 
 ## ********************* TRADITIONAL APPROACH *********************
 ## ------- Resolve using Spectral algorithm -------

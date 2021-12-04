@@ -24,7 +24,7 @@ from spectral_alg import spectual, cost
 
 ## Run the approximate bipartipe graph and the greedy algorithm a hundred times and save the results 
 M = 30 #number of run 
-nsize = 10 #size of the graph
+nsize = 20 #size of the graph
 
 #create vector to save the results in
 res_diff = np.array([]) #the difference in results
@@ -32,6 +32,7 @@ spectral_score = np.array([]) #the greedy score
 quantum_score = np.array([]) #the quantum score 
 
 for i in range(0,M):
+    print(i)
     ## Classical algorithm - spectral
     #G = compexact_bipartipe_graph(10)
     G = stochastic_block_model(nsize,a=0.1,b=0.5,c=0.1,d=0.1)
