@@ -41,7 +41,7 @@ for p in plist:
         #G = compexact_bipartipe_graph(10)
         G = stochastic_block_model(nsize,a=p/2,b=1-p/2,c=p/2,d=p/2)
         Sg,S0,S1 = spectual(G)
-        spectral_score = np.append(spectral_score,-1*Sg)
+        spectral_score = np.append(spectral_score,Sg)
 
         ## Quantum Annealing
         ## ------- Set up our QUBO dictionary -------
@@ -71,14 +71,14 @@ for p in plist:
             en_quant_list.append(Enew)
         # print("engergy list ")
         # print(en_quant_list)
-        max_en = -1*(min(en_quant_list))
+        max_en = (max(en_quant_list))
         # print("Maximum energy")
         # print(max_en)
         quantum_score = np.append(quantum_score,max_en)
 
         ## Compute the difference
-        diff = max_en-Sg
-        res_diff = np.append(res_diff,diff)
+        #diff = max_en-Sg
+        #res_diff = np.append(res_diff,diff)
         
     ## Save the data to work with it if necessary later 
     name_folder1 = "results_bipartite_p/SpectralValM="+str(M)+"-p="+str(p)+".csv"
