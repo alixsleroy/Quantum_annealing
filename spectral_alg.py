@@ -41,7 +41,7 @@ def cost(G, G0, G1):
             print('Assigning error!')
             
 
-    cost = min(cost1, cost2)
+    cost = max(cost1, cost2)
     return cost
     
 def new_mapping(A):
