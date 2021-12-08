@@ -23,22 +23,22 @@ from spectral_alg import spectual, cost
 
 
 ## Run the approximate bipartipe graph and the greedy algorithm a hundred times and save the results 
-M = 10 #number of run 
-nlist=[6,8,10,12] #,14,16,18,20]
-p=0.35
+M = 30 #number of run 
+nlist=[20]
+
+p=1
 # for nsize in nlist: 
 # print(nsize)
 for nsize in nlist: 
 
     #create vector to save the results in
-    res_diff = np.array([]) #the difference in results
     spectral_score = np.array([]) #the greedy score 
     quantum_score = np.array([]) #the quantum score 
 
     for i in range(0,M):
         print(i)
         ## Classical algorithm - spectral
-        # G = compexact_bipartipe_graph(10)
+        #G = compexact_bipartipe_graph(nsize)
         G = stochastic_block_model(nsize,a=p/2,b=1-p/2,c=p/2,d=p/2)
         Sg,S0,S1 = spectual(G)
         # print("spectral")
@@ -48,6 +48,7 @@ for nsize in nlist:
         # print(S1)
         # print("Score")
         # print(Sg)
+        # print("\n")
         spectral_score = np.append(spectral_score,Sg)
 
         ## Quantum Annealing
@@ -85,6 +86,7 @@ for nsize in nlist:
             en_quant_list.append(Enew)
             # print("engergy list ")
             # print(en_quant_list)
+        # print("\n")
         # print("quantum list of values")
         # print(en_quant_list)
         max_en = (max(en_quant_list))

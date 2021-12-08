@@ -40,8 +40,8 @@ from spectral_alg import spectual, cost
 
 ## ------- Create the graph -------
 #np.random.seed(123)
-p=0.2
-G = stochastic_block_model(12,p/2,1-p/2,p/2,p/2)
+p=0.9
+G = stochastic_block_model(6,p/2,1-p/2,p/2,p/2)
 #G = compexact_bipartipe_graph(10)
 
 ## ********************* TRADITIONAL APPROACH *********************
@@ -86,9 +86,10 @@ for sample, E in response.data(fields=['sample','energy']):
     S0 = [k for k,v in sample.items() if v == 0]
     S1 = [k for k,v in sample.items() if v == 1]
     Enew = cost(G, S0, S1)
-    print('{:>15s}{:>15s}{:^15s}{:^15s}'.format(str(S0),str(S1),str(E),str(int(-1*E))))
+    # print("QA cost")
+    # print('{:>15s}{:>15s}{:^15s}{:^15s}'.format(str(S0),str(S1),str(E),str(int(00))))
     print("JIAAO COST")
-    print('{:>15s}{:>15s}{:^15s}{:^15s}'.format(str(S0),str(S1),str(-1*Enew),str(int(Enew))))
+    print('{:>15s}{:>15s}{:^15s}{:^15s}'.format(str(S0),str(S1),str(Enew),str(int(00))))
 
 
 
