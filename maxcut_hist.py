@@ -41,7 +41,7 @@ for i in range(0,M):
     # # ------- Run our QUBO on the QPU -------
     # Set up QPU parameters
     chainstrength = 8
-    numruns = 10
+    numruns = 5
     # # Run the QUBO on the solver from your config file
     sampler = EmbeddingComposite(DWaveSampler())
     response = sampler.sample_qubo(Q,
@@ -65,6 +65,10 @@ for i in range(0,M):
     # print(diff)
     res_diff = np.append(res_diff,diff)
     
+name_folder1 = "results_undirected/SpectralValM="+str(M)+"-nodes=10-numruns="+str(numruns)+".csv"
+name_folder2 = "results_undirected/QuantumValM="+str(M)+"-nodes=10-numruns="+str(numruns)+".csv"
+savetxt(name_folder1, spectral_score, delimiter=',')
+savetxt(name_folder2, quantum_score, delimiter=',')
 ## Save the data to work with it if necessary later 
 
 

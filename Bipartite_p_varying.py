@@ -25,7 +25,7 @@ from spectral_alg import spectual, cost
 ## Run the approximate bipartipe graph and the greedy algorithm a hundred times and save the results 
 M = 30 #number of run 
 nsize = 10 #size of the graph
-plist = [0]
+plist = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
 
 for p in plist:
     print(p)
